@@ -12,5 +12,12 @@
     "blitz-js-query": "^0.2.18",
     "discord.js": "^11.2.1",
     "discord.js-commando": "^0.9.0"
+  },
+  "devDependencies": {
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1"
   }
 }

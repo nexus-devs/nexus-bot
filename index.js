@@ -1,1 +1,1 @@
-const bot = require("./lib/bot.js")
+const bot = require('./lib/bot.js')
