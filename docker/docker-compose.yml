@@ -1,0 +1,12 @@
+version: '3.4'
+
+
+services:
+  nexus-bot:
+    image: nexusstats/nexus-bot
+    secrets:
+      - nexus-bot-discord-token
+
+secrets:
+  nexus-bot-discord-token:
+    external: true
