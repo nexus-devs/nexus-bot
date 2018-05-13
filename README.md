@@ -10,8 +10,6 @@
 
 ##
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/nexus-devs/nexus-bot.svg)](https://greenkeeper.io/)
-
 [![build](https://ci.nexus-stats.com/api/badges/nexus-devs/nexus-bot/status.svg)](https://ci.nexus-stats.com/nexus-devs/nexus-bot)
 [![Discord](https://img.shields.io/discord/195582152849620992.svg?logo=discord)](https://discord.gg/AG8RPZ8)
 
