@@ -19,7 +19,9 @@
 If you wanna run this yourself for whatever reason, register a bot on [Discord](https://discordapp.com/developers/applications/me),
 get [Docker](https://www.docker.com/) and run:
 
->`cd docker; docker-compose up`
+```
+cd docker; docker-compose up
+```
 
 <br>
 
