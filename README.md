@@ -1,11 +1,17 @@
-<p align="center">
-<img src ="https://github.com/nexus-devs/nexus-stats/raw/development/.github/blobob.gif" height="225" />
-
 <br>
+
+<p align="center">
+<img src ="https://github.com/nexus-devs/nexus-stats/raw/development/.github/blobob.gif" height="200" />
+
 <br>
 
 <p align="center">Private Discord Bot for stuff on Nexus-Stats.</p>
 </p>
+
+##
+
+[![build](https://ci.nexus-stats.com/api/badges/nexus-devs/nexus-bot/status.svg)](https://ci.nexus-stats.com/nexus-devs/nexus-bot)
+[![Discord](https://img.shields.io/discord/195582152849620992.svg?logo=discord)](https://discord.gg/AG8RPZ8)
 
 <br>
 
