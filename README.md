@@ -1,5 +1,5 @@
 <p align="center">
-<img src ="/.github/blobob.gif" height="225" />
+<img src ="https://github.com/nexus-devs/nexus-stats/raw/development/.github/blobob.gif" height="225" />
 
 <br>
 <br>
