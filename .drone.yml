@@ -14,7 +14,6 @@ pipeline:
     image: plugins/docker
     dockerfile: docker/Dockerfile
     repo: nexusstats/nexus-bot
-    tags: staging
     no_cache: true
     secrets: [ docker_username, docker_password ]
     when:
