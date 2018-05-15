@@ -32,7 +32,7 @@ Requires the following secrets:
 <br>
 
 ## Why is this bot private?
-I just really don't wanna maintain this thing accross multiple servers. But if
+I just really don't wanna maintain this thing across multiple servers. But if
 you feel like dedicating your life to the maintenance of a puny discord bot,
 let me know on Discord. (Kilian#8972)
 
