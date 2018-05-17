@@ -20,7 +20,7 @@ If you wanna run this yourself for whatever reason, register a bot on [Discord](
 get [Docker](https://www.docker.com/) and run:
 
 ```
-cd docker; docker-compose up
+bash deploy.sh
 ```
 
 <br>
