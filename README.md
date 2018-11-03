@@ -5,7 +5,7 @@
 
 <br>
 
-<p align="center">Private Discord Bot for stuff on Nexus-Stats.</p>
+<p align="center">Private Discord Bot for stuff on NexusHub.</p>
 </p>
 
 ##
