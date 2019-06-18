@@ -7,13 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint --ignore-path .gitignore ."
   },
-  "author": "Kaptard",
+  "author": "Nakroma",
   "license": "CC-BY-NC-4.0",
-  "dependencies": {
-    "cubic-client": "^1.0.5",
-    "discord.js": "^11.2.1",
-    "discord.js-commando": "^0.10.0"
-  },
   "devDependencies": {
     "eslint": "^5.0.0",
     "eslint-config-standard": "^11.0.0",

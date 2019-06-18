@@ -1,1 +1,1 @@
-require('./lib/bot.js')
+
