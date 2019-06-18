@@ -9,11 +9,9 @@ const client = new Commando.Client({
 
 client.registry
   .registerDefaults()
-  .registerGroup('test-group', 'Test Group')
+  .registerGroup('prices', 'Item Prices')
   .registerCommandsIn(path.join(__dirname, 'commands'))
 
-console.log('bot registered shit')
-
-client.login(config.token)
-
-console.log('bot logged in')
+client.login(config.token).then(() => {
+  console.log('Bot running')
+})
