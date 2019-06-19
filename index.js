@@ -1,6 +1,6 @@
 const Commando = require('discord.js-commando')
 const path = require('path')
-const config = require('./secret.js')
+const secret = require('./secret.js')
 
 const client = new Commando.Client({
   commandPrefix: 'nex',
@@ -16,4 +16,4 @@ client.on('ready', () => {
   console.log('Bot ready!')
 })
 
-client.login(config.token)
+client.login(secret.token)
