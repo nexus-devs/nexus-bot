@@ -29,7 +29,22 @@ class PriceAlert extends Command {
   }
 
   async run (msg, args) {
-    msg.reply(`Lol: ${args['list-item']}`)
+    const operation = args['operation']
+
+    const db = (await this.db).db(config.mongoDb)
+    const collection = db.collection('price-alerts')
+    const author = msg.author
+
+    const alerts = await collection.find({ author: author.id }).sort({ '$natural': 1 }).toArray()
+
+    if (operation === 'list') {
+      let text = 'You have the following alerts set:\n'
+      for (let i = 0; i < alerts.length; i++) {
+        const alert = alerts[i]
+        text += `\t${i + 1}) ${alert.item} ${alert.type} \`${alert.threshold}p\`\n`
+      }
+      msg.reply(text)
+    }
   }
 }
 
