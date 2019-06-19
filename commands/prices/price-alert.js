@@ -31,7 +31,8 @@ class PriceAlert extends Command {
   }
 
   async run (msg, args) {
-    try { await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`) }
+    let res
+    try { res = await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`) }
     catch (err) {
       return msg.reply(`${err.error} ${err.reason}`)
     }
@@ -44,10 +45,14 @@ class PriceAlert extends Command {
     if (alertCount >= config.maxAlerts) return msg.reply(`You can't have more than ${config.maxAlerts} alerts. Delete some to make space.`)
 
     db.collection('price-alerts').insertOne({
-      author: author.id
+      author: author.id,
+      type: args['type'],
+      item: res.name,
+      threshold: args['price'],
+      hit: false // true if the alert was activated, reverts if threshold reverses
     })
 
-    msg.reply(`id: ${author.id}`)
+    msg.reply(`You've successfully set an alert on ${res.name}. You'll get a private message if the price goes ${args['type']} \`${args['price']}p\`.`)
   }
 }
 
