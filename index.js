@@ -14,6 +14,7 @@ client.registry
 
 client.on('ready', () => {
   console.log('Bot ready!')
+  client.user.setActivity('NexusHub.co')
 })
 
 client.login(secret.token)

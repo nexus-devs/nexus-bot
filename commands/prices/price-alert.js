@@ -1,4 +1,5 @@
 const Command = require('../Command.js')
+const config = require('../../config.js')
 
 class PriceAlert extends Command {
   constructor (client) {
@@ -30,17 +31,23 @@ class PriceAlert extends Command {
   }
 
   async run (msg, args) {
-    let res
-    try { res = await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`) }
+    try { await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`) }
     catch (err) {
       return msg.reply(`${err.error} ${err.reason}`)
     }
 
-    const set = res.components.find((comp) => { return comp.name === 'Set' })
-    if (!set) return msg.reply('Could not fetch a general price')
+    const db = (await this.db).db(config.mongoDb)
+    const collection = db.collection('price-alerts')
+    const author = msg.author
 
-    const setPrice = Math.round((set.prices.buying.current.median + set.prices.selling.current.median) / 2)
-    return msg.reply(`Price for ${res.name}: \`${setPrice}p\``)
+    const alertCount = await collection.find({ author: author.id }).count()
+    if (alertCount >= config.maxAlerts) return msg.reply(`You can't have more than ${config.maxAlerts} alerts. Delete some to make space.`)
+
+    db.collection('price-alerts').insertOne({
+      author: author.id
+    })
+
+    msg.reply(`id: ${author.id}`)
   }
 }
 

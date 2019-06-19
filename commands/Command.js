@@ -1,15 +1,19 @@
 const Commando = require('discord.js-commando').Command
+const MongoClient = require('mongodb').MongoClient
 const Nexus = require('cubic-client')
+const nexusConfig = require('../config.js')
+
+// Declare here so we share the same instance in all commands
 const nexus = new Nexus({
-  api_url: 'wss://api.nexushub.co/ws',
-  auth_url: 'wss://auth.nexushub.co/ws'
-}) // Declare here so we share the same instance in all commands
-// TODO: Admin client with discord.js throttling
+  api_url: nexusConfig.api_url,
+  auth_url: nexusConfig.auth_url
+})
 
 class Command extends Commando {
   constructor (client, config) {
     super(client, config)
     this.api = nexus
+    this.db = MongoClient.connect(nexusConfig.mongoUrl)
   }
 }
 
