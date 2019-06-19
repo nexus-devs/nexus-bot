@@ -34,16 +34,22 @@ class PriceAlert extends Command {
     const db = (await this.db).db(config.mongoDb)
     const collection = db.collection('price-alerts')
     const author = msg.author
+    const listItem = args['list-item']
 
     const alerts = await collection.find({ author: author.id }).sort({ '$natural': 1 }).toArray()
 
-    if (operation === 'list') {
+    if (operation === 'list' || listItem === 0) {
       let text = 'You have the following alerts set:\n'
+      if (operation !== 'list') text = 'Choose one of the following items:\n'
+
       for (let i = 0; i < alerts.length; i++) {
         const alert = alerts[i]
         text += `\t${i + 1}) ${alert.item} ${alert.type} \`${alert.threshold}p\`\n`
       }
       msg.reply(text)
+    } else if (operation === 'delete') {
+      collection.deleteOne({ _id: alerts[listItem - 1]._id })
+      msg.reply('Successfully deleted chosen alert!')
     }
   }
 }
