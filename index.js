@@ -12,6 +12,8 @@ client.registry
   .registerGroup('prices', 'Item Prices')
   .registerCommandsIn(path.join(__dirname, 'commands'))
 
-client.login(config.token).then(() => {
-  console.log('Bot running')
+client.on('ready', () => {
+  console.log('Bot ready!')
 })
+
+client.login(config.token)
