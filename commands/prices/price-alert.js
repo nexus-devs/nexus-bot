@@ -54,8 +54,8 @@ class PriceAlert extends Command {
         // Call alert if threshold is met
         if ((type === 'above' && req.price > threshold) || (type === 'below' && req.price < threshold)) {
           let messageStub = ''
-          if (alert.order === 'buying') messageStub = 'buy'
-          else if (alert.order === 'selling') messageStub = 'sell'
+          if (alert.order === 'buying') messageStub = 'sell'
+          else if (alert.order === 'selling') messageStub = 'buy'
 
           const user = await client.fetchUser(alert.author)
           user.send(`**Price Alert for ${alert.item}!** A ${alert.order} offer has hit ${type} \`${threshold}p\`.
