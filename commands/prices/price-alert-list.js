@@ -44,7 +44,7 @@ class PriceAlert extends Command {
 
       for (let i = 0; i < alerts.length; i++) {
         const alert = alerts[i]
-        text += `\t${i + 1}) ${alert.item} ${alert.type} \`${alert.threshold}p\`\n`
+        text += `\t${i + 1}) ${alert.item} ${alert.order} ${alert.type} \`${alert.threshold}p\`\n`
       }
       msg.reply(text)
     } else if (operation === 'delete') {

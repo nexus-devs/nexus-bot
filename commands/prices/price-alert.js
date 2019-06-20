@@ -20,7 +20,7 @@ class PriceAlert extends Command {
         label: 'order type',
         prompt: 'Which order type would you like to get notified about? (buying, selling or average)',
         type: 'string',
-        oneOf: ['buying', 'selling', 'average']
+        oneOf: ['buying', 'selling']
       }, {
         key: 'type',
         label: 'threshold type',
@@ -59,7 +59,7 @@ class PriceAlert extends Command {
       hit: false // true if the alert was activated, reverts if threshold reverses
     })
 
-    msg.reply(`You've successfully set an alert on ${res.name}. You'll get a private message if the price goes ${args['type']} \`${args['price']}p\`.`)
+    msg.reply(`You've successfully set an alert on ${res.name}. You'll get a private message if the ${args['order']} price goes ${args['type']} \`${args['price']}p\`.`)
   }
 }
 
