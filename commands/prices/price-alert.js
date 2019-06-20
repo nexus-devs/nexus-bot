@@ -9,12 +9,18 @@ class PriceAlert extends Command {
       group: 'prices',
       memberName: 'price-alert',
       description: 'Alerts you when a price hits a certain threshold.',
-      examples: ['price-alert \'Frost Prime\' below 140'],
+      examples: ['price-alert \'Frost Prime\' buying above 140', 'price-alert \'Frost Prime\' selling below 120'],
       args: [{
         key: 'item-name',
         label: 'item name',
         prompt: 'What item would you like to set an alert for?',
         type: 'string'
+      }, {
+        key: 'order',
+        label: 'order type',
+        prompt: 'Which order type would you like to get notified about? (buying, selling or average)',
+        type: 'string',
+        oneOf: ['buying', 'selling', 'average']
       }, {
         key: 'type',
         label: 'threshold type',
@@ -46,6 +52,7 @@ class PriceAlert extends Command {
 
     db.collection('price-alerts').insertOne({
       author: author.id,
+      order: args['order'],
       type: args['type'],
       item: res.name,
       threshold: args['price'],
