@@ -34,6 +34,36 @@ class PriceAlert extends Command {
         type: 'integer'
       }]
     })
+
+    // TODO: Think about component handling
+    this.api.subscribe('/warframe/v1/orders', async (req) => {
+      if (!client.uptime) return // make sure the client is ready
+      if (!req.price || req.component !== 'Set') return
+
+      const db = (await this.db).db(config.mongoDb)
+      const collection = db.collection('price-alerts')
+      const alerts = await collection.find({
+        item: req.item,
+        order: req.offer.toLowerCase()
+      }).toArray()
+
+      for (const alert of alerts) {
+        const type = alert.type
+        const threshold = alert.threshold
+
+        // Call alert if threshold is met
+        if ((type === 'above' && req.price > threshold) || (type === 'below' && req.price < threshold)) {
+          let messageStub = ''
+          if (alert.order === 'buying') messageStub = 'buy'
+          else if (alert.order === 'selling') messageStub = 'sell'
+
+          const user = await client.fetchUser(alert.author)
+          user.send(`**Price Alert for ${alert.item}!** A ${alert.order} offer has hit ${type} \`${threshold}p\`.
+User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:
+\`/w ${req.user} Hi ${req.user}, I'd like to ${messageStub} [${alert.item} ${req.component}] for ${req.price}p. Found your offer on NexusHub.\``)
+        }
+      }
+    })
   }
 
   async run (msg, args) {
