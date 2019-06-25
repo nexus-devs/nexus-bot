@@ -1,4 +1,5 @@
 const Command = require('../Command.js')
+const { RichEmbed } = require('discord.js')
 
 class PriceCheck extends Command {
   constructor (client) {
@@ -34,10 +35,12 @@ class PriceCheck extends Command {
     }
     orders = orders.filter(order => order.price !== null)
 
-    // const set = res.components.find((comp) => { return comp.name === 'Set' })
-    // if (!set) return msg.reply('Could not fetch a general price')
+    const embed = new RichEmbed()
+      .setColor('#11acb2')
+      .setTitle(res.name)
+      .setAuthor('NexusHub', 'https://nexushub.co/img/brand/nexushub-logo-bw.png', 'https://nexushub.co/')
+      .setTimestamp()
 
-    let text = ''
     for (const comp of res.components) {
       const currentPrice = Math.round((comp.prices.buying.current.median + comp.prices.selling.current.median) / 2)
       const previousPrice = Math.round((comp.prices.buying.previous.median + comp.prices.selling.previous.median) / 2)
@@ -54,13 +57,14 @@ class PriceCheck extends Command {
         .reduce((prev, curr) => prev.price < curr.price ? prev : curr)
 
       let percentageEmoji = pricePercentage < 0 ? '<:arrowdown:593103530613538816>' : '<:arrowup:593102737236033536>'
-      text += `**${res.name} ${comp.name}: ${currentPrice}p**     ${percentageEmoji}${pricePercentage}%\n`
-      // text += '─────────────────────────\n'
+      let text = `${currentPrice}p     ${percentageEmoji}${pricePercentage}%\n`
       text += `Buyers: ${comp.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${comp.prices.selling.current.orders} (${sellerPercentage}%)\n`
       text += `Best buy order: ${bestBuyOrder.price}p from \`${bestBuyOrder.user}\`\n`
-      text += `Best sell order: ${bestSellOrder.price}p from \`${bestSellOrder.user}\`\n\n`
+      text += `Best sell order: ${bestSellOrder.price}p from \`${bestSellOrder.user}\``
+
+      embed.addField(`${comp.name}`, text)
     }
-    return msg.reply(text)
+    return msg.reply(embed)
   }
 }
 
