@@ -80,7 +80,7 @@ User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:
     }
 
     const componentName = convertName(args['component-name'])
-    const component = res.components.find((comp) => { return comp.name === componentName })
+    const component = res.components.find(comp => comp.name === componentName)
     if (!component) return msg.reply(`Component ${componentName} isn't available for this item.`)
 
     const db = (await this.db).db(config.mongoDb)

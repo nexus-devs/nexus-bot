@@ -19,8 +19,16 @@ class PriceCheck extends Command {
   }
 
   async run (msg, args) {
+    // Get item price data
     let res
     try { res = await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`) }
+    catch (err) {
+      return msg.reply(`${err.error} ${err.reason}`)
+    }
+
+    // Get all orders corresponding to that item
+    let orders
+    try { orders = await this.api.get(`/warframe/v1/orders?item=${args['item-name']}`) }
     catch (err) {
       return msg.reply(`${err.error} ${err.reason}`)
     }
@@ -33,9 +41,18 @@ class PriceCheck extends Command {
     const buyerPercentage = Math.round((set.prices.buying.current.orders / orderTotal) * 100)
     const sellerPercentage = Math.round((set.prices.selling.current.orders / orderTotal) * 100)
 
+    // Get the highest buy order and the lowest sell order
+    orders = orders.filter(order => order.price !== null)
+    const bestBuyOrder = orders.filter(order => order.offer === 'Buying' && order.component === 'Set')
+      .reduce((prev, curr) => prev.price > curr.price ? prev : curr)
+    const bestSellOrder = orders.filter(order => order.offer === 'Selling' && order.component === 'Set')
+      .reduce((prev, curr) => prev.price < curr.price ? prev : curr)
+
     let text = `**${res.name}: ${setPrice}p**     <:arrowdown:593103530613538816>5p\n`
-    text += '────────────────────────────────\n'
-    text += `Buyers: ${set.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${set.prices.selling.current.orders} (${sellerPercentage}%)`
+    text += '─────────────────────────\n'
+    text += `Buyers: ${set.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${set.prices.selling.current.orders} (${sellerPercentage}%)\n`
+    text += `Best buy order: ${bestBuyOrder.price}p from \`${bestBuyOrder.user}\`\n`
+    text += `Best sell order: ${bestSellOrder.price}p from \`${bestSellOrder.user}\`\n`
     return msg.reply(text)
   }
 }
