@@ -36,7 +36,10 @@ class PriceCheck extends Command {
     const set = res.components.find((comp) => { return comp.name === 'Set' })
     if (!set) return msg.reply('Could not fetch a general price')
 
-    const setPrice = Math.round((set.prices.buying.current.median + set.prices.selling.current.median) / 2)
+    const currentPrice = Math.round((set.prices.buying.current.median + set.prices.selling.current.median) / 2)
+    const previousPrice = Math.round((set.prices.buying.previous.median + set.prices.selling.previous.median) / 2)
+    const pricePercentage = Math.round((currentPrice - previousPrice) / previousPrice * 100)
+
     const orderTotal = set.prices.buying.current.orders + set.prices.selling.current.orders
     const buyerPercentage = Math.round((set.prices.buying.current.orders / orderTotal) * 100)
     const sellerPercentage = Math.round((set.prices.selling.current.orders / orderTotal) * 100)
@@ -48,7 +51,8 @@ class PriceCheck extends Command {
     const bestSellOrder = orders.filter(order => order.offer === 'Selling' && order.component === 'Set')
       .reduce((prev, curr) => prev.price < curr.price ? prev : curr)
 
-    let text = `**${res.name}: ${setPrice}p**     <:arrowdown:593103530613538816>5p\n`
+    let percentageEmoji = pricePercentage < 0 ? '<:arrowdown:593103530613538816>' : '<:arrowup:593102737236033536>'
+    let text = `**${res.name}: ${currentPrice}p**     ${percentageEmoji}${pricePercentage}%\n`
     text += '─────────────────────────\n'
     text += `Buyers: ${set.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${set.prices.selling.current.orders} (${sellerPercentage}%)\n`
     text += `Best buy order: ${bestBuyOrder.price}p from \`${bestBuyOrder.user}\`\n`
