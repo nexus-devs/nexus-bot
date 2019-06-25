@@ -29,7 +29,14 @@ class PriceCheck extends Command {
     if (!set) return msg.reply('Could not fetch a general price')
 
     const setPrice = Math.round((set.prices.buying.current.median + set.prices.selling.current.median) / 2)
-    return msg.reply(`Price for ${res.name}: \`${setPrice}p\``)
+    const orderTotal = set.prices.buying.current.orders + set.prices.selling.current.orders
+    const buyerPercentage = Math.round((set.prices.buying.current.orders / orderTotal) * 100)
+    const sellerPercentage = Math.round((set.prices.selling.current.orders / orderTotal) * 100)
+
+    let text = `**${res.name}: ${setPrice}p**     <:arrowdown:593103530613538816>5p\n`
+    text += '────────────────────────────────\n'
+    text += `Buyers: ${set.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${set.prices.selling.current.orders} (${sellerPercentage}%)`
+    return msg.reply(text)
   }
 }
 
