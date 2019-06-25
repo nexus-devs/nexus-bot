@@ -1,5 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
+const convertName = (str) => str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) // converts name to first letter upper-case, everything else lower-case
 
 class PriceAlert extends Command {
   constructor (client) {
@@ -12,8 +13,13 @@ class PriceAlert extends Command {
       examples: ['price-alert \'Frost Prime\' buying above 140', 'price-alert \'Frost Prime\' selling below 120'],
       args: [{
         key: 'item-name',
-        label: 'item name',
+        label: 'item',
         prompt: 'What item would you like to set an alert for?',
+        type: 'string'
+      }, {
+        key: 'component-name',
+        label: 'component',
+        prompt: 'For what component of the item would you like to set an alert for?',
         type: 'string'
       }, {
         key: 'order',
@@ -73,6 +79,10 @@ User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:
       return msg.reply(`${err.error} ${err.reason}`)
     }
 
+    const componentName = convertName(args['component-name'])
+    const component = res.components.find((comp) => { return comp.name === componentName })
+    if (!component) return msg.reply(`Component ${componentName} isn't available for this item.`)
+
     const db = (await this.db).db(config.mongoDb)
     const collection = db.collection('price-alerts')
     const author = msg.author
@@ -85,11 +95,12 @@ User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:
       order: args['order'],
       type: args['type'],
       item: res.name,
+      component: componentName,
       threshold: args['price'],
       hit: false // true if the alert was activated, reverts if threshold reverses
     })
 
-    msg.reply(`You've successfully set an alert on ${res.name}. You'll get a private message if the ${args['order']} price goes ${args['type']} \`${args['price']}p\`.`)
+    return msg.reply(`You've successfully set an alert on ${res.name} ${componentName}. You'll get a private message if the ${args['order']} price goes ${args['type']} \`${args['price']}p\`.`)
   }
 }
 
