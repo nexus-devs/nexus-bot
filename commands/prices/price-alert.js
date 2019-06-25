@@ -41,7 +41,6 @@ class PriceAlert extends Command {
       }]
     })
 
-    // TODO: Think about component handling
     this.api.subscribe('/warframe/v1/orders', async (req) => {
       if (!client.uptime) return // make sure the client is ready
       if (!req.price) return
