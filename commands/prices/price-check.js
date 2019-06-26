@@ -9,19 +9,8 @@ class PriceCheck extends Command {
       group: 'prices',
       memberName: 'price-check',
       description: 'Checks an item price.',
-      examples: ['price-check Frost Prime']
-      /* args: [{
-        key: 'item-name',
-        label: 'item name',
-        prompt: 'What item would you like to price check?',
-        type: 'string'
-      }, {
-        key: 'component-name',
-        label: 'component name',
-        prompt: 'What specific component would you like to check?',
-        type: 'string',
-        default: ''
-      }] */
+      examples: ['price-check Frost Prime'],
+      format: '<item> [component]'
     })
   }
 
