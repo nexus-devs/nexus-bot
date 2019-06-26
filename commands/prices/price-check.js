@@ -9,7 +9,7 @@ class PriceCheck extends Command {
       group: 'prices',
       memberName: 'price-check',
       description: 'Checks an item price.',
-      examples: ['price-check Frost Prime'],
+      examples: ['price-check Frost Prime', 'price-check Volt Prime Chassis'],
       format: '<item> [component]'
     })
   }

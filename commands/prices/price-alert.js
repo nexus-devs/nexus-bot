@@ -9,35 +9,8 @@ class PriceAlert extends Command {
       group: 'prices',
       memberName: 'price-alert',
       description: 'Alerts you when a price hits a certain threshold.',
-      examples: ['price-alert \'Frost Prime\' buying above 140', 'price-alert \'Frost Prime\' selling below 120'],
-      /* args: [{
-        key: 'item-name',
-        label: 'item',
-        prompt: 'What item would you like to set an alert for?',
-        type: 'string'
-      }, {
-        key: 'component-name',
-        label: 'component',
-        prompt: 'For what component of the item would you like to set an alert for?',
-        type: 'string'
-      }, {
-        key: 'order',
-        label: 'order type',
-        prompt: 'Which order type would you like to get notified about? (buying, selling or average)',
-        type: 'string',
-        oneOf: ['buying', 'selling']
-      }, {
-        key: 'type',
-        label: 'threshold type',
-        prompt: 'Would you like to set a lower (below) or upper (above) bound alert?',
-        type: 'string',
-        oneOf: ['below', 'above']
-      }, {
-        key: 'price',
-        label: 'price',
-        prompt: 'At what price should the alert go off?',
-        type: 'integer'
-      }] */
+      examples: ['price-alert Frost Prime buying above 140', 'price-alert Volt Prime Chassis selling below 120'],
+      format: '<item> [component] <order type> <threshold type> <price>'
     })
 
     this.api.subscribe('/warframe/v1/orders', async (req) => {
