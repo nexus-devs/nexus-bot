@@ -15,33 +15,15 @@ class PriceCheck extends Command {
   }
 
   async run (msg, argument) {
-    const itemList = await this.api.get('/warframe/v1/items?tradable=true')
-
     argument = this.convertName(argument)
-    let args = {}
-    let meta
-
-    // Find out matching item and component from arg string
-    for (let item of itemList) {
-      const lookupName = argument.split(' ')
-      const itemName = item.name.split(' ')
-
-      let component
-      if (itemName.length !== lookupName.length) component = lookupName.pop()
-      if (itemName.join() === lookupName.join()) {
-        args['item-name'] = item.name
-        args['component-name'] = component
-        meta = item
-        break
-      }
-    }
+    const { args, meta } = await this.parseItemAndComponent(argument)
 
     if (!args['item-name']) return msg.reply('The item you\'re looking for either doesn\'t exist or isn\'t tradable.')
 
     // Get item price data, orders for that item and corresponding meta data
     let res, orders
     try {
-      // toLowerCase() is currently needed because the cache is a bit messed up
+      // TODO: toLowerCase() is currently needed because the cache is a bit messed up
       res = await this.api.get(`/warframe/v1/items/${args['item-name'].toLowerCase()}/prices`)
       orders = await this.api.get(`/warframe/v1/orders?item=${args['item-name']}`)
     } catch (err) {

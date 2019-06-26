@@ -10,7 +10,7 @@ class PriceAlert extends Command {
       memberName: 'price-alert',
       description: 'Alerts you when a price hits a certain threshold.',
       examples: ['price-alert \'Frost Prime\' buying above 140', 'price-alert \'Frost Prime\' selling below 120'],
-      args: [{
+      /* args: [{
         key: 'item-name',
         label: 'item',
         prompt: 'What item would you like to set an alert for?',
@@ -37,7 +37,7 @@ class PriceAlert extends Command {
         label: 'price',
         prompt: 'At what price should the alert go off?',
         type: 'integer'
-      }]
+      }] */
     })
 
     this.api.subscribe('/warframe/v1/orders', async (req) => {
@@ -72,16 +72,35 @@ class PriceAlert extends Command {
     })
   }
 
-  async run (msg, args) {
+  async run (msg, argument) {
+    // Parse general args
+    let cmdArgs = {}
+    argument = argument.split(' ')
+
+    cmdArgs['price'] = parseInt(argument.pop())
+    if (typeof cmdArgs['price'] !== 'number') return msg.reply('Your price argument is not a number.')
+
+    cmdArgs['type'] = argument.pop().toLowerCase()
+    if (!(['below', 'above'].includes(cmdArgs['type']))) return msg.reply('Threshold type has to be either \'above\' oder \'below\'')
+
+    cmdArgs['order'] = argument.pop().toLowerCase()
+    if (!(['buying', 'selling'].includes(cmdArgs['order']))) return msg.reply('Order type has to be either \'buying\' oder \'selling\'')
+
+    // Parse item
+    argument = this.convertName(argument.join(' '))
+    let { args } = await this.parseItemAndComponent(argument)
+    args = { ...args, ...cmdArgs }
+    args['component-name'] = args['component-name'] ? args['component-name'] : 'Set'
+
     let res
-    try { res = await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`) }
+    // TODO: toLowerCase() is currently needed because the cache is a bit messed up
+    try { res = await this.api.get(`/warframe/v1/items/${args['item-name'].toLowerCase()}/prices`) }
     catch (err) {
       return msg.reply(`${err.error} ${err.reason}`)
     }
 
-    const componentName = this.convertName(args['component-name'])
-    const component = res.components.find(comp => comp.name === componentName)
-    if (!component) return msg.reply(`Component ${componentName} isn't available for this item.`)
+    const component = res.components.find(comp => comp.name === args['component-name'])
+    if (!component) return msg.reply(`Component ${args['component-name']} isn't available for this item.`)
 
     const db = (await this.db).db(config.mongoDb)
     const collection = db.collection('price-alerts')
@@ -95,11 +114,11 @@ class PriceAlert extends Command {
       order: args['order'],
       type: args['type'],
       item: res.name,
-      component: componentName,
-      threshold: args['price'],
+      component: args['component-name'],
+      threshold: args['price']
     })
 
-    return msg.reply(`You've successfully set an alert on ${res.name} ${componentName}. You'll get a private message if the ${args['order']} price goes ${args['type']} \`${args['price']}p\`.`)
+    return msg.reply(`You've successfully set an alert on ${res.name} ${args['component-name']}. You'll get a private message if the ${args['order']} price goes ${args['type']} \`${args['price']}p\`.`)
   }
 }
 
