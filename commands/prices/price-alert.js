@@ -63,9 +63,10 @@ class PriceAlert extends Command {
           else if (alert.order === 'selling') messageStub = 'buy'
 
           const user = await client.fetchUser(alert.author)
-          user.send(`**Price Alert for ${alert.item} ${alert.component}!** A ${alert.order} offer has hit ${type} \`${threshold}p\`.
-User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:
-\`/w ${req.user} Hi ${req.user}, I'd like to ${messageStub} [${alert.item} ${req.component}] for ${req.price}p. Found your offer on NexusHub.\``)
+          let text = `**Price Alert for ${alert.item} ${alert.component}!** A ${alert.order} offer has hit ${type} \`${threshold}p\`.\n`
+          text += `User ${req.user} is ${alert.order} for \\\`${req.price}p\\\`. Message directly with:\n`
+          text += `\`/w ${req.user} Hi ${req.user}, I'd like to ${messageStub} [${alert.item} ${req.component}] for ${req.price}p. Found your offer on NexusHub.\``
+          user.send(text)
         }
       }
     })
