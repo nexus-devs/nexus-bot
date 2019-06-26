@@ -97,7 +97,6 @@ class PriceAlert extends Command {
       item: res.name,
       component: componentName,
       threshold: args['price'],
-      hit: false // true if the alert was activated, reverts if threshold reverses
     })
 
     return msg.reply(`You've successfully set an alert on ${res.name} ${componentName}. You'll get a private message if the ${args['order']} price goes ${args['type']} \`${args['price']}p\`.`)
