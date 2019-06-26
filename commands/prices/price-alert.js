@@ -1,6 +1,5 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
-const convertName = (str) => str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) // converts name to first letter upper-case, everything else lower-case
 
 class PriceAlert extends Command {
   constructor (client) {
@@ -79,7 +78,7 @@ User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:
       return msg.reply(`${err.error} ${err.reason}`)
     }
 
-    const componentName = convertName(args['component-name'])
+    const componentName = this.convertName(args['component-name'])
     const component = res.components.find(comp => comp.name === componentName)
     if (!component) return msg.reply(`Component ${componentName} isn't available for this item.`)
 

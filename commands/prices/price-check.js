@@ -9,28 +9,64 @@ class PriceCheck extends Command {
       group: 'prices',
       memberName: 'price-check',
       description: 'Checks an item price.',
-      examples: ['price-check Frost Prime'],
-      args: [{
+      examples: ['price-check Frost Prime']
+      /* args: [{
         key: 'item-name',
         label: 'item name',
         prompt: 'What item would you like to price check?',
         type: 'string'
-      }]
+      }, {
+        key: 'component-name',
+        label: 'component name',
+        prompt: 'What specific component would you like to check?',
+        type: 'string',
+        default: ''
+      }] */
     })
   }
 
-  async run (msg, args) {
+  async run (msg, argument) {
+    const itemList = await this.api.get('/warframe/v1/items?tradable=true')
+
+    argument = this.convertName(argument)
+    let args = {}
+    let meta
+
+    // Find out matching item and component from arg string
+    for (let item of itemList) {
+      const lookupName = argument.split(' ')
+      const itemName = item.name.split(' ')
+
+      let component
+      if (itemName.length !== lookupName.length) component = lookupName.pop()
+      if (itemName.join() === lookupName.join()) {
+        args['item-name'] = item.name
+        args['component-name'] = component
+        meta = item
+        break
+      }
+    }
+
+    if (!args['item-name']) return msg.reply('The item you\'re looking for either doesn\'t exist or isn\'t tradable.')
+
     // Get item price data, orders for that item and corresponding meta data
-    let res, orders, meta
+    let res, orders
     try {
-      res = await this.api.get(`/warframe/v1/items/${args['item-name']}/prices`)
+      // toLowerCase() is currently needed because the cache is a bit messed up
+      res = await this.api.get(`/warframe/v1/items/${args['item-name'].toLowerCase()}/prices`)
       orders = await this.api.get(`/warframe/v1/orders?item=${args['item-name']}`)
-      meta = await this.api.get(`/warframe/v1/items/${args['item-name']}`)
     } catch (err) {
       return msg.reply(`${err.error} ${err.reason}`)
     }
 
     orders = orders.filter(order => order.price !== null)
+
+    if (args['component-name']) {
+      res.components = res.components.find(comp => comp.name === args['component-name'])
+
+      if (res.components) res.components = [res.components]
+      else return msg.reply(`Couldn't find data for component '${args['component-name']}' on ${res.name}`)
+    }
 
     const embed = new RichEmbed()
       .setColor('#11acb2')
@@ -68,6 +104,7 @@ class PriceCheck extends Command {
 
       embed.addField(`${comp.name}`, text)
     }
+
     return msg.reply(embed)
   }
 }

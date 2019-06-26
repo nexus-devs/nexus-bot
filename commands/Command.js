@@ -14,6 +14,7 @@ class Command extends Commando {
     super(client, config)
     this.api = nexus
     this.db = MongoClient.connect(nexusConfig.mongoUrl)
+    this.convertName = (str) => str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) // converts name to first letter upper-case, everything else lower-case
   }
 }
 
