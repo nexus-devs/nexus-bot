@@ -15,7 +15,12 @@ class UntrackTradechat extends Command {
   }
 
   async run (msg, args) {
-    return msg.reply('Untracked trade chat')
+    const db = (await this.db).db(config.mongoDb)
+
+    const deleteOp = await db.collection('trackings').deleteOne({ channelId: msg.channel.id })
+    if (deleteOp.deletedCount < 1) return msg.reply('This channel is not tracking currently.')
+
+    return msg.reply('Untracked trade chat.')
   }
 }
 
