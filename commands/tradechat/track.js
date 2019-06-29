@@ -1,4 +1,5 @@
 const Command = require('../Command.js')
+const config = require('../../config.js')
 
 class TrackTradechat extends Command {
   constructor (client) {
@@ -7,7 +8,9 @@ class TrackTradechat extends Command {
       group: 'tradechat',
       memberName: 'track',
       description: 'Tracks the ingame trade chat in the current channel.',
-      examples: ['track']
+      examples: ['track'],
+      guildOnly: true,
+      userPermissions: [config.trackingPermission]
     })
   }
 

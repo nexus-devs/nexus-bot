@@ -17,6 +17,13 @@ module.exports = {
    * Price alert settings
    * Will probably have to go in a dynamic system with roles later
    */
-  maxAlerts: 3
+  maxAlerts: 3,
+
+  /**
+   * Trade chat tracking settings
+   * Will probably have to go in a dynamic system with roles later
+   * Flags: https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS
+   */
+  trackingPermission: 'MANAGE_CHANNELS' // Permission needed to start tracking trade chat
 
 }
