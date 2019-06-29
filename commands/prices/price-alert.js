@@ -82,7 +82,7 @@ class PriceAlert extends Command {
     const alertCount = await collection.find({ author: author.id }).count()
     if (alertCount >= config.maxAlerts) return msg.reply(`You can't have more than ${config.maxAlerts} alerts. Delete some to make space.`)
 
-    db.collection('price-alerts').insertOne({
+    collection.insertOne({
       author: author.id,
       order: args['order'],
       type: args['type'],

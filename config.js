@@ -24,6 +24,7 @@ module.exports = {
    * Will probably have to go in a dynamic system with roles later
    * Flags: https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS
    */
-  trackingPermission: 'MANAGE_CHANNELS' // Permission needed to start tracking trade chat
+  trackingPermission: 'MANAGE_CHANNELS', // Permission needed to start tracking trade chat
+  maxTrackingsPerServer: 1
 
 }
