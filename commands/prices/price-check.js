@@ -1,4 +1,5 @@
 const Command = require('../Command.js')
+const config = require('../../config.js')
 const { RichEmbed } = require('discord.js')
 
 class PriceCheck extends Command {
@@ -40,7 +41,7 @@ class PriceCheck extends Command {
     }
 
     const embed = new RichEmbed()
-      .setColor('#11acb2')
+      .setColor(config.embedColor)
       .setTitle(res.name)
       .setURL('https://nexushub.co' + meta.webUrl)
       .setAuthor('NexusHub', 'https://nexushub.co/img/brand/nexushub-logo-bw.png', 'https://nexushub.co/')

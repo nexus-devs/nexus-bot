@@ -28,7 +28,7 @@ class TrackTradechat extends Command {
         if (!channel) return collection.deleteOne({ _id: tr._id }) // delete non-existing channels
 
         const embed = new RichEmbed()
-          .setColor('#11acb2')
+          .setColor(config.embedColor)
           .setTitle(req.user)
           .setDescription(req.message)
           .setFooter(`Platform: ${req.platform}, Region: Unknown`)

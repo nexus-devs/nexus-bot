@@ -1,6 +1,11 @@
 module.exports = {
 
   /**
+   * Bot or Discord specific settings
+   */
+  embedColor: '#11acb2',
+
+  /**
    * Nexus client settings
    * TODO: Admin client with discord.js throttling
    */
