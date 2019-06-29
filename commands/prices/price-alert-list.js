@@ -1,7 +1,7 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
 
-class PriceAlert extends Command {
+class PriceAlertList extends Command {
   constructor (client) {
     super(client, {
       name: 'price-alert-list',
@@ -54,4 +54,4 @@ class PriceAlert extends Command {
   }
 }
 
-module.exports = PriceAlert
+module.exports = PriceAlertList

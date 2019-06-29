@@ -10,6 +10,7 @@ const client = new Commando.Client({
 client.registry
   .registerDefaults()
   .registerGroup('prices', 'Item Prices')
+  .registerGroup('tradechat', 'Trade Chat')
   .registerCommandsIn(path.join(__dirname, 'commands'))
 
 client.on('ready', () => {
