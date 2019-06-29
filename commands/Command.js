@@ -1,9 +1,10 @@
 const Commando = require('discord.js-commando').Command
 const MongoClient = require('mongodb').MongoClient
-const Nexus = require('cubic-client')
+const Nexus = require('../../cubic/packages/client')
 const nexusConfig = require('../config.js')
 
 // Declare here so we share the same instance in all commands
+// TODO: Admin permissions and throttling in the commands
 const nexus = new Nexus({
   api_url: nexusConfig.api_url,
   auth_url: nexusConfig.auth_url

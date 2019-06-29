@@ -1,5 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
+const { RichEmbed } = require('discord.js')
 
 class TrackTradechat extends Command {
   constructor (client) {
@@ -11,6 +12,29 @@ class TrackTradechat extends Command {
       examples: ['track'],
       guildOnly: true,
       userPermissions: [config.trackingPermission]
+    })
+
+    this.api.subscribe('/warframe/v1/orders', async (req) => {
+      if (!client.uptime) return // make sure the client is ready
+      if (req.source !== 'Trade Chat' || !req.message) return
+      console.log(req)
+
+      const db = (await this.db).db(config.mongoDb)
+      const collection = db.collection('trackings')
+      const trackings = await collection.find({}).toArray()
+
+      for (const tr of trackings) {
+        const channel = client.channels.get(tr.channelId)
+        if (!channel) return collection.deleteOne({ _id: tr._id }) // delete non-existing channels
+
+        const embed = new RichEmbed()
+          .setColor('#11acb2')
+          .setTitle(req.user)
+          .setDescription(req.message)
+          .setFooter(`Platform: ${req.platform}, Region: Unknown`)
+
+        channel.send(embed)
+      }
     })
   }
 
