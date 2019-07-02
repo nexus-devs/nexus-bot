@@ -15,7 +15,7 @@ class Command extends Commando {
   constructor (client, config) {
     super(client, config)
     this.api = nexus
-    this.db = MongoClient.connect(nexusConfig.mongoUrl)
+    this.db = MongoClient.connect(nexusConfig.mongoUrl, { useNewUrlParser: true })
     this.itemList = undefined
   }
 
