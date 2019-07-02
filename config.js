@@ -1,8 +1,11 @@
-module.exports = {
+const fs = require('fs')
+
+const config = {
 
   /**
    * Bot or Discord specific settings
    */
+  discordToken: fs.readFileSync('./run/secrets/nexus-bot-discord-token', 'utf-8').trim(),
   embedColor: '#11acb2',
 
   /**
@@ -33,3 +36,5 @@ module.exports = {
   maxTrackingsPerServer: 1
 
 }
+
+module.exports = config

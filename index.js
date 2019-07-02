@@ -1,6 +1,6 @@
 const Commando = require('discord.js-commando')
 const path = require('path')
-const secret = require('./secret.js')
+const config = require('./config.js')
 
 const client = new Commando.Client({
   commandPrefix: 'nex',
@@ -18,4 +18,4 @@ client.on('ready', () => {
   client.user.setActivity('NexusHub.co')
 })
 
-client.login(secret.token)
+client.login(config.discordToken)
