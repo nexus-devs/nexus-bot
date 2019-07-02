@@ -33,7 +33,7 @@ class TrackTradechat extends Command {
           .setColor(config.embedColor)
           .setTitle(req.user)
           .setDescription(req.message)
-          .setFooter(`Platform: ${req.platform}, Region: Unknown`)
+          .setFooter(`Platform: ${req.platform}, Region: All`)
 
         channel.send(embed)
       }
