@@ -5,7 +5,7 @@
 
 <br>
 
-<p align="center">Official [NexusHub](https://nexushub.co) Discord Bot.</p>
+<p align="center">Official <a href="https://nexushub.co">NexusHub</a> Discord Bot.</p>
 </p>
 
 ##
