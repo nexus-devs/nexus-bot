@@ -24,7 +24,7 @@
 
 ## Commands
 
-#### Price Commands
+### Price Commands
 **Price Check**
 - Command: `price-check  <item> [component]`, Aliases: `pc, pcheck`
 - Description: Returns a comprehensive price check for an item or component.
@@ -57,7 +57,7 @@
 | operation | `true` | If not specified, it will just return the list. Otherwise it will perform the operation. Currently only supports `delete` |
 | list item | `true` | If an operation is specified, this is the alert number in the list to perform the operation on. |
 
-#### Tradechat Commands
+### Tradechat Commands
 **Track Tradechat**
 - Command: `track`
 - Description: Starts tracking the tradechat in the current channel. Only works on a server.
