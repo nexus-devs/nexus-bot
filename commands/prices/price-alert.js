@@ -1,5 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
+const { RichEmbed } = require('discord.js')
 
 class PriceAlert extends Command {
   constructor (client) {
@@ -35,11 +36,17 @@ class PriceAlert extends Command {
           if (alert.order === 'buying') messageStub = 'sell'
           else if (alert.order === 'selling') messageStub = 'buy'
 
-          const user = await client.fetchUser(alert.author)
-          let text = `**Price Alert for ${alert.item} ${alert.component}!** A ${alert.order} offer has hit ${type} \`${threshold}p\`.\n`
-          text += `User ${req.user} is ${alert.order} for \\\`${req.price}p\\\`. Message directly with:\n`
+          let text = `A ${alert.order} offer has hit ${type} \`${threshold}p\`.\n\n`
+          text += `User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:\n`
           text += `\`/w ${req.user} Hi ${req.user}, I'd like to ${messageStub} [${alert.item} ${req.component}] for ${req.price}p. Found your offer on NexusHub.\``
-          user.send(text)
+
+          const embed = new RichEmbed()
+            .setColor(config.embedColor)
+            .setTitle(`Price Alert for ${alert.item} ${alert.component}!`)
+            .setDescription(text)
+
+          const user = await client.fetchUser(alert.author)
+          user.send(embed)
         }
       }
     })
