@@ -16,10 +16,12 @@ class PriceCheck extends Command {
   }
 
   async run (msg, argument) {
+    msg = await msg.reply('`Processing command...`')
+
     argument = this.convertName(argument)
     const { args, meta } = await this.parseItemAndComponent(argument)
 
-    if (!args['item-name']) return msg.reply('The item you\'re looking for either doesn\'t exist or isn\'t tradable.')
+    if (!args['item-name']) return msg.edit('The item you\'re looking for either doesn\'t exist or isn\'t tradable.')
 
     // Get item price data, orders for that item and corresponding meta data
     let res, orders
@@ -28,7 +30,7 @@ class PriceCheck extends Command {
       res = await this.api.get(`/warframe/v1/items/${args['item-name'].toLowerCase()}/prices`)
       orders = await this.api.get(`/warframe/v1/orders?item=${args['item-name']}`)
     } catch (err) {
-      return msg.reply(`${err.error} ${err.reason}`)
+      return msg.edit(`${err.error} ${err.reason}`)
     }
 
     orders = orders.filter(order => order.price !== null)
@@ -37,7 +39,7 @@ class PriceCheck extends Command {
       res.components = res.components.find(comp => comp.name === args['component-name'])
 
       if (res.components) res.components = [res.components]
-      else return msg.reply(`Couldn't find data for component '${args['component-name']}' on ${res.name}`)
+      else return msg.edit(`Couldn't find data for component '${args['component-name']}' on ${res.name}`)
     }
 
     const embed = new RichEmbed()
@@ -77,7 +79,7 @@ class PriceCheck extends Command {
       embed.addField(`${comp.name}`, text)
     }
 
-    return msg.reply(embed)
+    return msg.edit(embed)
   }
 }
 
