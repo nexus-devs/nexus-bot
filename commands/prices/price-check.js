@@ -11,7 +11,11 @@ class PriceCheck extends Command {
       memberName: 'price-check',
       description: 'Checks an item price.',
       examples: ['price-check Frost Prime', 'price-check Volt Prime Chassis'],
-      format: '<item> [component]'
+      format: '<item> [component]',
+      throttling: {
+        usages: 5,
+        duration: 10
+      }
     })
   }
 
