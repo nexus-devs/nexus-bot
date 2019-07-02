@@ -1,4 +1,5 @@
 const fs = require('fs')
+const prod = process.env.DOCKER && process.env.NODE_ENV === 'production'
 
 const config = {
 
@@ -10,10 +11,11 @@ const config = {
 
   /**
    * Nexus client settings
-   * TODO: Admin client with discord.js throttling
    */
-  api_url: 'wss://api.nexushub.co/ws',
-  auth_url: 'wss://auth.nexushub.co/ws',
+  apiUrl: 'wss://api.nexushub.co/ws',
+  authUrl: 'wss://auth.nexushub.co/ws',
+  userKey: prod ? fs.readFileSync('./run/secrets/nexus-client-key', 'utf-8').trim() : undefined,
+  userSecret: prod ? fs.readFileSync('./run/secrets/nexus-client-secret', 'utf-8').trim() : undefined,
 
   /**
    * Database settings
