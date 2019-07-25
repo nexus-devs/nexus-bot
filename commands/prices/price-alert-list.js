@@ -1,5 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
+const { RichEmbed } = require('discord.js')
 
 class PriceAlertList extends Command {
   constructor (client) {
@@ -39,14 +40,24 @@ class PriceAlertList extends Command {
     const alerts = await collection.find({ author: author.id }).sort({ '$natural': 1 }).toArray()
 
     if (operation === 'list' || listItem === 0) {
-      let text = 'You have the following alerts set:\n'
-      if (operation !== 'list') text = 'Choose one of the following items:\n'
+      if (alerts.length <= 0) return msg.reply('You currently have no alerts set.')
 
+      let title = `Your alerts (${alerts.length}/${config.maxAlerts})` // TODO: Permission system
+      if (operation !== 'list') title = 'Choose one of the following items:\n'
+
+      let text = '```haskell\n'
       for (let i = 0; i < alerts.length; i++) {
         const alert = alerts[i]
-        text += `\t${i + 1}) ${alert.item} ${alert.component} ${alert.order} ${alert.type} \`${alert.threshold}p\`\n`
+        text += `${i + 1}] ${alert.item} ${alert.component} ${alert.order} ${alert.type} ${alert.threshold}p\n`
       }
-      return msg.reply(text)
+      text += '```'
+
+      const embed = new RichEmbed()
+        .setColor(config.embedColor)
+        .setTitle(title)
+        .setDescription(text)
+
+      return msg.reply(embed)
     } else if (operation === 'delete') {
       collection.deleteOne({ _id: alerts[listItem - 1]._id })
       return msg.reply('Successfully deleted chosen alert!')
