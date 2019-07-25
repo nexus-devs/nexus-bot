@@ -36,7 +36,7 @@
 | component | `true` | The specific component to check. |
 
 **Price Alert**
-- Command: `price-alert  <item> [component] <order type> <threshold type> <price>`, Aliases: `alert, palert`
+- Command: `price-alert  <item> [component] [order type] [threshold type] <price>`, Aliases: `alert, palert`
 - Description: Sets an alert for an item or component. The bot messages you, when the price hits the set threshold.
 - Throttling: 3 alerts per user
 
@@ -44,8 +44,8 @@
 |:---------------|:-------------|:-----------------|
 | item | `false` | The item to check. |
 | component | `true` | The specific component to check. |
-| order type | `false` | Has to be `buying` or `selling`. Specifies the order type to check for.
-| threshold type | `false` | Has to be `below` or `above`. Specifies when the alert goes off.
+| order type | `true` | Has to be `buying` or `selling`. Specifies the order type to check for. Default is 'buying'
+| threshold type | `true` | Has to be `below` or `above`. Specifies when the alert goes off. Default is 'below' if order type is 'buying', otherwise 'above'
 | price | `false` | The price to go below or above to. |
 
 **Price Alert List**

@@ -11,7 +11,7 @@ class PriceAlert extends Command {
       memberName: 'price-alert',
       description: 'Alerts you when a price hits a certain threshold.',
       examples: ['price-alert Frost Prime buying above 140', 'price-alert Volt Prime Chassis selling below 120'],
-      format: '<item> [component] <order type> <threshold type> <price>'
+      format: '<item> [component] [order type] [threshold type] <price>'
     })
 
     this.api.subscribe('/warframe/v1/orders', async (req) => {
