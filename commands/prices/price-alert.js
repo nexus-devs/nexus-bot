@@ -53,18 +53,33 @@ class PriceAlert extends Command {
   }
 
   async run (msg, argument) {
-    // Parse general args
+    // Default vars, undefined used only for documentation
     let cmdArgs = {}
+    cmdArgs['order'] = 'buying'
+    cmdArgs['type'] = undefined
+    cmdArgs['price'] = undefined
+
+    // Parse arguments
     argument = argument.split(' ')
+    for (let i = argument.length - 1; i >= 0; i--) {
+      let parsedArg = true
+      const arg = argument[i].toLowerCase()
 
-    cmdArgs['price'] = parseInt(argument.pop())
-    if (typeof cmdArgs['price'] !== 'number') return msg.reply('Your price argument is not a number.')
+      if (!isNaN(parseInt(arg))) {
+        cmdArgs['price'] = parseInt(arg)
+      } else if (['below', 'above'].includes(arg)) {
+        cmdArgs['type'] = arg
+      } else if (['buying', 'selling'].includes(arg)) {
+        cmdArgs['order'] = arg
+      } else parsedArg = false
 
-    cmdArgs['type'] = argument.pop().toLowerCase()
-    if (!(['below', 'above'].includes(cmdArgs['type']))) return msg.reply('Threshold type has to be either \'above\' oder \'below\'')
+      if (parsedArg) argument.splice(i, 1)
+    }
 
-    cmdArgs['order'] = argument.pop().toLowerCase()
-    if (!(['buying', 'selling'].includes(cmdArgs['order']))) return msg.reply('Order type has to be either \'buying\' oder \'selling\'')
+    if (!cmdArgs['price']) return msg.reply('No price argument given, or it\'s not a number.')
+
+    // Set default threshold type
+    if (!cmdArgs['type']) cmdArgs['type'] = cmdArgs['order'] === 'buying' ? 'above' : 'below'
 
     // Parse item
     argument = this.convertName(argument.join(' '))
