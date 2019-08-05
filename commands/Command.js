@@ -1,6 +1,6 @@
 const Commando = require('discord.js-commando').Command
 const MongoClient = require('mongodb').MongoClient
-const Nexus = require('../../cubic/packages/client')
+const Nexus = require('cubic-client')
 const nexusConfig = require('../config.js')
 
 // Declare here so we share the same instance in all commands
@@ -19,7 +19,7 @@ class Command extends Commando {
     this.itemList = undefined
   }
 
-  // converts name to first letter upper-case, everything else lower-case
+  // Converts name to first letter upper-case, everything else lower-case
   convertName (str) { return str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase()) }
 
   // Find out matching item and component from a string

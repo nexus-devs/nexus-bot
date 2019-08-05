@@ -72,14 +72,16 @@ class PriceCheck extends Command {
       else bestSellOrder = null
 
       let percentageEmoji = pricePercentage < 0 ? '<:arrowdown:593103530613538816>' : '<:arrowup:593102737236033536>'
-      let text = `${currentPrice}p     ${percentageEmoji}${pricePercentage}%\n`
+      let text = `\`${currentPrice}p\`     ${percentageEmoji}${pricePercentage}%\n`
+      text += '```java\n'
       text += `Buyers: ${comp.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${comp.prices.selling.current.orders} (${sellerPercentage}%)\n`
 
       if (!bestBuyOrder) text += 'No best buy order currently available.\n'
-      else text += `Best buy order: ${bestBuyOrder.price}p from \`${bestBuyOrder.user}\`\n`
+      else text += `Best buy order: ${bestBuyOrder.price}p from ${bestBuyOrder.user}\n`
       if (!bestSellOrder) text += 'No best sell order currently available.\n'
-      else text += `Best sell order: ${bestSellOrder.price}p from \`${bestSellOrder.user}\``
+      else text += `Best sell order: ${bestSellOrder.price}p from ${bestSellOrder.user}`
 
+      text += '```'
       embed.addField(`${comp.name}`, text)
     }
 
