@@ -1,0 +1,22 @@
+version: '3.4'
+
+
+services:
+  nexus_bot:
+    image: nexusstats/nexus-bot
+    secrets:
+      - nexus-bot-discord-token
+      - nexus-client-key
+      - nexus-client-secret
+    depends_on:
+      - mongo
+    environment:
+      - DOCKER=true
+
+secrets:
+  nexus-bot-discord-token:
+    external: true
+  nexus-client-key:
+    external: true
+  nexus-client-secret:
+    external: true
