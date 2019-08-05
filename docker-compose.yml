@@ -6,8 +6,8 @@ services:
     image: nexusstats/nexus-bot
     secrets:
       - nexus-bot-discord-token
-      - nexus-client-key
-      - nexus-client-secret
+      - nexus-cubic-key
+      - nexus-cubic-secret
     depends_on:
       - mongo
     environment:
@@ -16,7 +16,7 @@ services:
 secrets:
   nexus-bot-discord-token:
     external: true
-  nexus-client-key:
+  nexus-cubic-key:
     external: true
-  nexus-client-secret:
+  nexus-cubic-secret:
     external: true

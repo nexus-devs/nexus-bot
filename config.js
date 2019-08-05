@@ -14,8 +14,8 @@ const config = {
    */
   apiUrl: 'wss://api.nexushub.co/ws',
   authUrl: 'wss://auth.nexushub.co/ws',
-  userKey: prod ? fs.readFileSync('./run/secrets/nexus-client-key', 'utf-8').trim() : undefined,
-  userSecret: prod ? fs.readFileSync('./run/secrets/nexus-client-secret', 'utf-8').trim() : undefined,
+  userKey: prod ? fs.readFileSync('./run/secrets/nexus-cubic-key', 'utf-8').trim() : undefined,
+  userSecret: prod ? fs.readFileSync('./run/secrets/nexus-cubic-secret', 'utf-8').trim() : undefined,
 
   /**
    * Database settings
