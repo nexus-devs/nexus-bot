@@ -1,5 +1,5 @@
 const fs = require('fs')
-const prod = process.env.DOCKER && process.env.NODE_ENV === 'production'
+const prod = process.env.DOCKER
 
 const config = {
 
