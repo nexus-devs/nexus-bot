@@ -13,9 +13,13 @@ client.registry
   .registerGroup('tradechat', 'Trade Chat')
   .registerCommandsIn(path.join(__dirname, 'commands'))
 
-client.on('ready', () => {
-  console.log('Bot ready!')
-  client.user.setActivity('NexusHub.co')
-})
+client
+  .on('ready', () => {
+    console.log('Bot ready!')
+    client.user.setActivity('NexusHub.co')
+  })
+  .on('error', console.error)
+  .on('warn', console.warn)
+  .on('debug', console.log)
 
 client.login(config.discordToken)
