@@ -11,13 +11,20 @@ services:
       - mongo-admin-pwd
     depends_on:
       - mongo
+    networks:
+      - bot_network
     # environment:
     #  - DOCKER=true
   mongo:
     image: mongo
+    networks:
+      - bot_network
     ports:
       - "27017:27017"
 
+networks:
+  bot_network:
+    driver: overlay
 
 secrets:
   nexus-bot-discord-token:
