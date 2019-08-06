@@ -21,7 +21,7 @@ const config = {
    * Database settings
    */
   dbSecret: prod ? fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8') : undefined,
-  mongoUrl: prod ? 'mongodb://admin:' + fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8').trim() + '@mongo/admin' : 'mongodb://discord_mongo:27017/',
+  mongoUrl: prod ? 'mongodb://admin:' + fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8').trim() + '@mongo/admin' : 'mongodb://mongo:27017/',
   mongoDb: 'nexus-bot',
 
   /**
