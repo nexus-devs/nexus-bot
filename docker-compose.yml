@@ -3,16 +3,18 @@ version: '3.4'
 
 services:
   nexus_bot:
+    build: .
     image: nexusstats/nexus-bot-rework:latest
     secrets:
       - nexus-bot-discord-token
       - nexus-cubic-key
       - nexus-cubic-secret
       - mongo-admin-pwd
-    depends_on:
-      - mongo
-    environment:
-      - DOCKER=true
+    # environment:
+    #  - DOCKER=true
+  mongo:
+    image: mongo
+
 
 secrets:
   nexus-bot-discord-token:
