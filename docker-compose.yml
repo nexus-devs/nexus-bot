@@ -9,16 +9,14 @@ services:
       - nexus-cubic-key
       - nexus-cubic-secret
       - mongo-admin-pwd
-    tty: true
+    depends_on:
+      - mongo
     # environment:
     #  - DOCKER=true
   mongo:
     image: mongo
     ports:
       - "27017:27017"
-    deploy:
-      placement:
-        constraints: ""
 
 
 secrets:
