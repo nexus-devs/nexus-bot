@@ -6,7 +6,6 @@
 <br>
 
 <p align="center">Official <a href="https://nexushub.co">NexusHub</a> Discord Bot.</p>
-</p>
 
 ##
 
@@ -86,6 +85,7 @@ Requires the following secrets:
 - `nexus-bot-discord-token`
 - `nexus-client-key` (in production)
 - `nexus-client-secret` (in production)
+- `mongo-admin-pwd` (in production)
 
 <br>
 

@@ -20,7 +20,8 @@ const config = {
   /**
    * Database settings
    */
-  mongoUrl: 'mongodb://localhost/',
+  dbSecret: prod ? fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8') : undefined,
+  mongoUrl: prod ? 'mongodb://admin:' + fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8').trim() + '@mongo/admin' : 'mongodb://localhost/',
   mongoDb: 'nexus-bot',
 
   /**
