@@ -3,7 +3,6 @@ version: '3.4'
 
 services:
   nexus_bot:
-    build: .
     image: nexusstats/nexus-bot-rework:latest
     secrets:
       - nexus-bot-discord-token
