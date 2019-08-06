@@ -3,7 +3,7 @@ version: '3.4'
 
 services:
   nexus_bot:
-    image: nexusstats/nexus-bot
+    image: nexusstats/nexus-bot:latest
     secrets:
       - nexus-bot-discord-token
       - nexus-cubic-key
