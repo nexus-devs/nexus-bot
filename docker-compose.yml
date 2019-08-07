@@ -13,8 +13,8 @@ services:
       - mongo
     networks:
       - bot_network
-    # environment:
-    #  - DOCKER=true
+    environment:
+      - NODE_ENV=production
   mongo:
     image: mongo
     networks:

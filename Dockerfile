@@ -7,7 +7,7 @@ RUN apk --update add git openssh
 RUN git clone https://github.com/nexus-devs/nexus-bot /app/nexus-bot \
     && cd /app/nexus-bot \
     && git checkout rework \
-    && npm install
+    && npm install --production
 
 # Run this
 CMD [ "node", "/app/nexus-bot" ]
