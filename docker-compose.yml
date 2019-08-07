@@ -21,9 +21,11 @@ services:
     ports:
       - "27017:27017"
 
+
 networks:
   bot_network:
     driver: overlay
+
 
 secrets:
   nexus-bot-discord-token:

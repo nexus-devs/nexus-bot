@@ -8,6 +8,7 @@ const config = {
    */
   discordToken: fs.readFileSync('./run/secrets/nexus-bot-discord-token', 'utf-8').trim(),
   embedColor: '#11acb2',
+  commandPrefix: '!',
 
   /**
    * Nexus client settings

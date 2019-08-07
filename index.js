@@ -3,7 +3,7 @@ const path = require('path')
 const config = require('./config.js')
 
 const client = new Commando.Client({
-  commandPrefix: 'nex',
+  commandPrefix: config.commandPrefix,
   owner: '104959162819072000'
 })
 
