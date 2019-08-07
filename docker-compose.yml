@@ -8,7 +8,6 @@ services:
       - nexus-bot-discord-token
       - nexus-cubic-key
       - nexus-cubic-secret
-      - mongo-admin-pwd
     depends_on:
       - mongo
     networks:
@@ -32,6 +31,4 @@ secrets:
   nexus-cubic-key:
     external: true
   nexus-cubic-secret:
-    external: true
-  mongo-admin-pwd:
     external: true
