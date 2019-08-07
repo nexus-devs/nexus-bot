@@ -70,12 +70,32 @@
 
 <br>
 
-## Quickstart
+## Configuration
+| Config value | Default | Description |
+|:-------------|:--------|:------------|
+| discordToken | Secret: `nexus-bot-discord-token` | The bot token you've got from Discord. |
+| embedColor | `#11acb2` | Border color of the embeds. |
+| commandPrefix | `!` | Prefix of the bot commands. |
+| apiUrl | `wss://api.nexushub.co/ws` | API url to connect to. |
+| authUrl | `wss://auth.nexushub.co/ws` | Auth url to connect to. |
+| userKey | Secret: `nexus-cubic-key` | User key for the cubic client instance. Is undefined in development. |
+| userSecret | Secret: `nexus-cubic-secret` | User secret for the cubic client instance. Is undefined in development. |
+| mongoUrl | `mongodb://mongo:27017/` | MongoDB URL. Default assumes you're running the standard docker setup. Uses localhost in development. |
+| mongoDb | `nexus-bot` | Database name. |
+| maxAlerts | `3` | Maximum amount of alerts users can have. |
+| trackingPermission | `MANAGE_CHANNELS` | [Discord permisson](https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS) needed on a server to track the tradechat. |
+| maxTrackingsPerServer| `1` | Maximum amount of channels on a server able to track the tradechat. |
+
+<br>
+
+## Deployment
 If you want to run this yourself for whatever reason, register a bot on [Discord](https://discordapp.com/developers/applications/me),
-get [Docker](https://www.docker.com/) and run:
+get [Docker](https://www.docker.com/) and the official [mongo image](https://hub.docker.com/_/mongo).
+Then build the bot image and deploy the bot on a docker swarm, by running this:
 
 ```
-bash deploy.sh
+docker build https://github.com/nexus-devs/nexus-bot.git#rework -t nexusstats/nexus-bot-rework
+docker stack deploy -c docker-compose.yml discord
 ```
 
 <br>
@@ -85,7 +105,6 @@ Requires the following secrets:
 - `nexus-bot-discord-token`
 - `nexus-client-key` (in production)
 - `nexus-client-secret` (in production)
-- `mongo-admin-pwd` (in production)
 
 <br>
 
