@@ -21,7 +21,7 @@ const config = {
    * Database settings
    */
   dbSecret: prod ? fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8') : undefined,
-  mongoUrl: prod ? 'mongodb://admin:' + fs.readFileSync('./run/secrets/mongo-admin-pwd', 'utf-8').trim() + '@mongo/admin' : 'mongodb://mongo:27017/',
+  mongoUrl: prod ? 'mongodb://mongo:27017/' : 'mongodb://localhost/', // This is the default if you run it with docker
   mongoDb: 'nexus-bot',
 
   /**
