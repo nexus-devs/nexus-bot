@@ -18,7 +18,7 @@ services:
   mongo:
     image: mongo
     volumes:
-      - ./localFolder:/data/db
+      - ./:/data/db
     networks:
       - bot_network
     ports:
