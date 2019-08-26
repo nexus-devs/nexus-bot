@@ -68,6 +68,12 @@
 - Description: Stops tracking the tradechat in the current channel. Only works if the tradechat is currently getting tracked.
 - Permissions: `MANAGE_CHANNELS`
 
+### Utility commands
+**Server Count**
+- Command: `server-count`
+- Description: Shows the amount of servers this bot is running on.
+- Bot owner only
+
 <br>
 
 ## Configuration
