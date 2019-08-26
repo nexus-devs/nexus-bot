@@ -9,5 +9,5 @@ RUN git clone https://github.com/nexus-devs/nexus-bot /app/nexus-bot \
     && git checkout rework \
     && npm install --production
 
-# Run this
+# Run this (command gets overwritten by compose though)
 CMD [ "node", "/app/nexus-bot" ]
