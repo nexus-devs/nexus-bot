@@ -10,6 +10,8 @@ services:
       - nexus-cubic-secret
     depends_on:
       - mongo
+    command:
+      - ["./wait-for-it.sh", "mongo:27017", "--", "node", "/app/nexus-bot"]
     networks:
       - bot_network
     environment:
