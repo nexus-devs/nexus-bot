@@ -10,4 +10,4 @@ RUN git clone https://github.com/nexus-devs/nexus-bot /app/nexus-bot \
     && npm install --production
 
 # Run this
-# CMD [ "node", "/app/nexus-bot" ]
+CMD [ "node", "/app/nexus-bot" ]
