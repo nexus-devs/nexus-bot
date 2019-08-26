@@ -16,6 +16,8 @@ services:
       - NODE_ENV=production
   mongo:
     image: mongo
+    volumes:
+      - ./localFolder:/data/db
     networks:
       - bot_network
     ports:
