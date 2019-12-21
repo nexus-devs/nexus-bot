@@ -28,7 +28,7 @@ class Command extends Commando {
 
     const result = {}
     let meta
-    for (let item of this.itemList) {
+    for (const item of this.itemList) {
       const lookupName = argument.split(' ')
       const itemName = item.name.split(' ')
 

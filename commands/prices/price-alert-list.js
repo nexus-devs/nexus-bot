@@ -37,7 +37,7 @@ class PriceAlertList extends Command {
     const author = msg.author
     const listItem = args['list-item']
 
-    const alerts = await collection.find({ author: author.id }).sort({ '$natural': 1 }).toArray()
+    const alerts = await collection.find({ author: author.id }).sort({ $natural: 1 }).toArray()
 
     if (operation === 'list' || listItem === 0) {
       if (alerts.length <= 0) return msg.reply('You currently have no alerts set.')

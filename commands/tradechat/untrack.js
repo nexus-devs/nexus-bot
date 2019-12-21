@@ -9,7 +9,6 @@ class UntrackTradechat extends Command {
       memberName: 'untrack',
       description: 'Untracks the ingame trade chat in the current channel.',
       examples: ['untrack'],
-      guildOnly: true,
       userPermissions: [config.trackingPermission]
     })
   }
@@ -17,7 +16,8 @@ class UntrackTradechat extends Command {
   async run (msg, args) {
     const db = (await this.db).db(config.mongoDb)
 
-    const deleteOp = await db.collection('trackings').deleteOne({ channelId: msg.channel.id })
+    const query = msg.guild ? { channelId: msg.channel.id } : { authorId: msg.author.id }
+    const deleteOp = await db.collection('trackings').deleteOne(query)
     if (deleteOp.deletedCount < 1) return msg.reply('This channel is not tracking currently.')
 
     return msg.reply('Untracked trade chat.')

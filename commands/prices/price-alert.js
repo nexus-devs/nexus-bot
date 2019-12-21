@@ -54,7 +54,7 @@ class PriceAlert extends Command {
 
   async run (msg, argument) {
     // Default vars, undefined used only for documentation
-    let cmdArgs = {}
+    const cmdArgs = {}
     cmdArgs['order'] = 'buying'
     cmdArgs['type'] = undefined
     cmdArgs['price'] = undefined

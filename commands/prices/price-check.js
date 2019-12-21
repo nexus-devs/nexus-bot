@@ -71,7 +71,7 @@ class PriceCheck extends Command {
       if (bestSellOrder.length > 0) bestSellOrder = bestSellOrder.reduce((prev, curr) => prev.price < curr.price ? prev : curr)
       else bestSellOrder = null
 
-      let percentageEmoji = pricePercentage < 0 ? '<:arrowdown:593103530613538816>' : '<:arrowup:593102737236033536>'
+      const percentageEmoji = pricePercentage < 0 ? '<:arrowdown:593103530613538816>' : '<:arrowup:593102737236033536>'
       let text = `\`${currentPrice}p\`     ${percentageEmoji}${pricePercentage}%\n`
       text += '```java\n'
       text += `Buyers: ${comp.prices.buying.current.orders} (${buyerPercentage}%)     Sellers: ${comp.prices.selling.current.orders} (${sellerPercentage}%)\n`
