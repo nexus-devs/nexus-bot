@@ -59,7 +59,7 @@
 ### Tradechat Commands
 **Track Tradechat**
 - Command: `track`
-- Description: Starts tracking the tradechat in the current channel. Only works on a server.
+- Description: Starts tracking the tradechat in the current channel.
 - Permissions: `MANAGE_CHANNELS`
 - Throttling: 1 channel per server
 
