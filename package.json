@@ -10,7 +10,7 @@
   "author": "Kaptard",
   "license": "CC-BY-NC-4.0",
   "dependencies": {
-    "cubic-client": "^1.0.5",
+    "cubic-client": "^3.5.0",
     "discord.js": "^11.2.1",
     "discord.js-commando": "^0.10.0"
   },
