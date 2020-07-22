@@ -17,8 +17,8 @@ services:
       - NODE_ENV=production
     logging:
       options:
-        max-file: 5
-        max-size: 10m
+        max-file: "5"
+        max-size: "10m"
   mongo:
     image: mongo
     volumes:
@@ -29,8 +29,8 @@ services:
       - "27017:27017"
     logging:
       options:
-        max-file: 5
-        max-size: 10m
+        max-file: "5"
+        max-size: "10m"
 
 
 networks:
