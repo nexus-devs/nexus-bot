@@ -32,3 +32,13 @@ client
   .on('debug', console.log)
 
 client.login(config.discordToken)
+
+// Channel based auto role assignment
+client.on('message', message => {
+    for (const autoRole of config.channelRoleAssignments) {
+        if (autoRole.channel !== message.channel.name) continue
+
+        const role = message.guild.roles.find(r => r.name === autoRole.role)
+        message.member.addRole(role)
+    }
+})

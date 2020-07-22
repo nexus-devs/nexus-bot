@@ -6,7 +6,7 @@ const config = {
   /**
    * Bot or Discord specific settings
    */
-  discordToken: fs.readFileSync('./run/secrets/nexus-bot-discord-token', 'utf-8').trim(),
+  discordToken: fs.readFileSync('/run/secrets/nexus-bot-discord-token', 'utf-8').trim(),
   embedColor: '#11acb2',
   commandPrefix: '!',
 
@@ -36,7 +36,14 @@ const config = {
    * Flags: https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS
    */
   trackingPermission: 'MANAGE_CHANNELS', // Permission needed to start tracking trade chat
-  maxTrackingsPerServer: 1
+  maxTrackingsPerServer: 1,
+
+  /**
+   * Channel based role assignment
+   */
+  channelRoleAssignments: [
+    { channel: 'wow', role: 'TestRole' }
+  ]
 
 }
 

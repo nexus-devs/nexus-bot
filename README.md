@@ -91,6 +91,7 @@
 | maxAlerts | `3` | Maximum amount of alerts users can have. |
 | trackingPermission | `MANAGE_CHANNELS` | [Discord permisson](https://discord.js.org/#/docs/main/stable/class/Permissions?scrollTo=s-FLAGS) needed on a server to track the tradechat. |
 | maxTrackingsPerServer| `1` | Maximum amount of channels on a server able to track the tradechat. |
+| channelRoleAssignments | `[]` | Array of `{ channel: '<name>', role: '<name>' }` objects - assigns the specified role if a user writes in the specified channel. Needs Manage Role permissions for this.
 
 <br>
 
