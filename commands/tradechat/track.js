@@ -1,6 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 class TrackTradechat extends Command {
   constructor (client) {
@@ -22,13 +22,13 @@ class TrackTradechat extends Command {
       const trackings = await collection.find({}).toArray()
 
       for (const tr of trackings) {
-        const channel = tr.authorId ? await client.fetchUser(tr.authorId) : client.channels.get(tr.channelId)
+        const channel = tr.authorId ? await client.users.fetch(tr.authorId) : client.channels.cache.get(tr.channelId)
         if (!channel) return collection.deleteOne({ _id: tr._id }) // Delete non-existing channels / users
 
         const { meta } = await this.parseItemAndComponent(req.item)
         req.message = req.message.replace(new RegExp(`(${req.item})`, 'gi'), `[${req.item}](https://nexushub.co${meta.webUrl})`) // TODO: Make this more clean
 
-        const embed = new RichEmbed()
+        const embed = new MessageEmbed()
           .setColor(config.embedColor)
           .setTitle(req.user)
           .setDescription(req.message)

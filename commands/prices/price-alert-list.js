@@ -1,6 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 class PriceAlertList extends Command {
   constructor (client) {
@@ -52,7 +52,7 @@ class PriceAlertList extends Command {
       }
       text += '```'
 
-      const embed = new RichEmbed()
+      const embed = new MessageEmbed()
         .setColor(config.embedColor)
         .setTitle(title)
         .setDescription(text)

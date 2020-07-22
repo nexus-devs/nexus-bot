@@ -12,7 +12,7 @@ class ServerCount extends Command {
   }
 
   async run (msg, args) {
-    return msg.reply(`This bot is running on ${this.client.guilds.size} servers.`)
+    return msg.reply(`This bot is running on ${this.client.guilds.cache.size} servers.`)
   }
 }
 

@@ -1,6 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 class PriceCheck extends Command {
   constructor (client) {
@@ -46,7 +46,7 @@ class PriceCheck extends Command {
       else return msg.edit(`Couldn't find data for component '${args['component-name']}' on ${res.name}`)
     }
 
-    const embed = new RichEmbed()
+    const embed = new MessageEmbed()
       .setColor(config.embedColor)
       .setTitle(res.name)
       .setURL('https://nexushub.co' + meta.webUrl)

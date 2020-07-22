@@ -1,6 +1,6 @@
 const Command = require('../Command.js')
 const config = require('../../config.js')
-const { RichEmbed } = require('discord.js')
+const { MessageEmbed } = require('discord.js')
 
 class PriceAlert extends Command {
   constructor (client) {
@@ -40,12 +40,12 @@ class PriceAlert extends Command {
           text += `User ${req.user} is ${alert.order} for \`${req.price}p\`. Message directly with:\n`
           text += `\`/w ${req.user} Hi ${req.user}, I'd like to ${messageStub} [${alert.item} ${req.component}] for ${req.price}p. Found your offer on NexusHub.\``
 
-          const embed = new RichEmbed()
+          const embed = new MessageEmbed()
             .setColor(config.embedColor)
             .setTitle(`Price Alert for ${alert.item} ${alert.component}!`)
             .setDescription(text)
 
-          const user = await client.fetchUser(alert.author)
+          const user = await client.users.fetch(alert.author)
           user.send(embed)
         }
       }

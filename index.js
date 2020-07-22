@@ -4,7 +4,8 @@ const config = require('./config.js')
 
 const client = new Commando.Client({
   commandPrefix: config.commandPrefix,
-  owner: '104959162819072000'
+  owner: '104959162819072000',
+  partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 })
 
 client.registry
@@ -33,8 +34,25 @@ client
 
 client.login(config.discordToken)
 
+// Manual reaction based role assignment
+client.on('messageReactionAdd', async (reaction, user) => {
+    console.log('REACTION')
+    if (reaction.partial) {
+        try {
+            await reaction.fetch()
+        } catch (error) {
+            console.log('Something went wrong when fetching reaction: ', error)
+            return
+        }
+    }
+    console.log('FETCHED')
+
+    // if (reaction.message.channel.name !== config.roleChannel) return
+    console.log(reaction.emoji)
+})
+
 // Channel based auto role assignment
-client.on('message', message => {
+client.on('message', async (message) => {
     for (const autoRole of config.channelRoleAssignments) {
         if (autoRole.channel !== message.channel.name) continue
 

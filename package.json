@@ -20,8 +20,8 @@
   },
   "dependencies": {
     "cubic-client": "^3.2.0",
-    "discord.js": "^11.5.1",
-    "discord.js-commando": "^0.10.0",
+    "discord.js": "^12.2.0",
+    "discord.js-commando": "github:discordjs/Commando",
     "mongodb": "^3.2.7"
   }
 }

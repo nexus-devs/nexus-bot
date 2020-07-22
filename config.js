@@ -41,8 +41,13 @@ const config = {
   /**
    * Channel based role assignment
    */
+  roleChannel: 'roles',
+  roleReactions: [
+
+  ],
   channelRoleAssignments: [
-    { channel: 'wow', role: 'TestRole' }
+    { channel: 'warframe', role: 'Warframe' },
+    { channel: 'wow-classic', role: 'WoW Classic' }
   ]
 
 }
