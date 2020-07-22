@@ -74,6 +74,11 @@
 - Description: Shows the amount of servers this bot is running on.
 - Bot owner only
 
+**Rule Message**
+- Command: `rule-message`
+- Description: Have the bot display a message that contains all assignable roles.
+- Bot owner only
+
 <br>
 
 ## Configuration
