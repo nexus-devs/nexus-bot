@@ -43,7 +43,8 @@ const config = {
    */
   roleChannel: 'roles',
   roleReactions: [
-
+    { reaction: '🟩', role: 'Warframe' }, // Green square
+    { reaction: '🟧', role: 'WoW Classic' } // Orange square
   ],
   channelRoleAssignments: [
     { channel: 'warframe', role: 'Warframe' },

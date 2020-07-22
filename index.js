@@ -36,7 +36,6 @@ client.login(config.discordToken)
 
 // Manual reaction based role assignment
 client.on('messageReactionAdd', async (reaction, user) => {
-    console.log('REACTION')
     if (reaction.partial) {
         try {
             await reaction.fetch()
@@ -45,10 +44,16 @@ client.on('messageReactionAdd', async (reaction, user) => {
             return
         }
     }
-    console.log('FETCHED')
 
-    // if (reaction.message.channel.name !== config.roleChannel) return
-    console.log(reaction.emoji)
+    if (reaction.message.channel.name !== config.roleChannel) return
+
+    for (const reactionRole of config.roleReactions) {
+        if (reaction.emoji.name !== reactionRole.reaction) continue
+
+        const guild = reaction.message.guild
+        const role = guild.roles.cache.find(r => r.name === reactionRole.role)
+        await guild.members.cache.find(m => m.id === user.id).roles.add(role)
+    }
 })
 
 // Channel based auto role assignment
@@ -56,7 +61,7 @@ client.on('message', async (message) => {
     for (const autoRole of config.channelRoleAssignments) {
         if (autoRole.channel !== message.channel.name) continue
 
-        const role = message.guild.roles.find(r => r.name === autoRole.role)
-        message.member.addRole(role)
+        const role = message.guild.roles.cache.find(r => r.name === autoRole.role)
+        await message.member.roles.add(role)
     }
 })
